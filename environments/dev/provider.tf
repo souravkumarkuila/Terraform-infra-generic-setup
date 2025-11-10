@@ -7,10 +7,10 @@ terraform {
   }
 
   backend "azurerm" {
-    resource_group_name   = "Souravgenerg"
-    storage_account_name  = "kuilastorage"
-    container_name        = "devkuila"
-    key                   = "devlopement.terraform.tfstate"
+    resource_group_name   = "souravtodogenrg"
+    storage_account_name  = "souravtodogenstore"
+    container_name        = "souravtodogencont"
+    key                   = "dev.terraform.tfstate"
     
   }
 }

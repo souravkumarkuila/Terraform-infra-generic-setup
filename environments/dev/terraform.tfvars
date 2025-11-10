@@ -1,6 +1,6 @@
 rg-main = {
   rg1 = {
-    name       = "rg-dev"
+    name       = "rg-dev-souravkuila"
     location   = "Central US"
     managed_by = " managed by dev team"
     tags = {
@@ -29,7 +29,7 @@ rg-main = {
 stg-main = {
   stg1 = {
     name                     = "stgdevaccount37"
-    resource_group_name      = "rg-dev"
+    resource_group_name      = "rg-dev-souravkuila"
     location                 = "Central US"
     account_tier             = "Standard"
     account_replication_type = "LRS"
@@ -77,7 +77,7 @@ vnet-main = {
   vnet1 = {
     name                = "vnet-dev"
     location            = "Central US"
-    resource_group_name = "rg-dev"
+    resource_group_name = "rg-dev-souravkuila"
     address_space       = ["10.0.0.0/16"]
     tags = {
       environment  = "dev"
@@ -103,7 +103,7 @@ pip-main = {
   pip1 = {
     name                = "pip-dev"
     location            = "Central US"
-    resource_group_name = "rg-dev"
+    resource_group_name = "rg-dev-souravkuila"
     allocation_method   = "Static"
     tags = {
       environment  = "dev"
@@ -133,7 +133,7 @@ nsg-main = {
   nsg1 = {
     name                = "nsg-dev"
     location            = "Central US"
-    resource_group_name = "rg-dev"
+    resource_group_name = "rg-dev-souravkuila"
     tags = {
       environment = "dev"
     }
@@ -161,7 +161,7 @@ nic-main = {
     pip_name                      = "pip-dev"
     name                          = "nic-dev"
     location                      = "Central US"
-    resource_group_name           = "rg-dev"
+    resource_group_name           = "rg-dev-souravkuila"
     enable_ip_forwarding          = false
     enable_accelerated_networking = false
     tags                          = { environment = "dev" }
@@ -181,7 +181,7 @@ nic_nsg_association-main = {
   assoc1 = {
     nic_name            = "nic-dev"
     nsg_name            = "nsg-dev"
-    resource_group_name = "rg-dev"
+    resource_group_name = "rg-dev-souravkuila"
   }
 }
 
@@ -189,7 +189,7 @@ vms-main = {
   vm1 = {
     name                            = "vm-dev"
     location                        = "Central US"
-    resource_group_name             = "rg-dev"
+    resource_group_name             = "rg-dev-souravkuila"
     size                            = "Standard_B1s"
     admin_username                  = "azureuser"
     admin_password                  = "P@ssword123!"
@@ -216,5 +216,64 @@ vms-main = {
     tags = {
       environment = "dev"
     }
+  }
+}
+
+key_vaults = {
+  kv-dev = {
+    name                            = "kv-todoappsouravkuila"
+    resource_group_name             = "rg-dev-souravkuila"
+    location                        = "Central US"
+    sku_name                        = "standard"
+    enabled_for_deployment          = true
+    enabled_for_disk_encryption     = true
+    enabled_for_template_deployment = false
+    purge_protection_enabled        = false
+    soft_delete_retention_days      = 7
+
+    access_policies = [
+      {
+
+        key_permissions         = ["Get", "List", "Create", "Delete"]
+        secret_permissions      = ["Get", "List", "Set", "Delete", "Recover"]
+        certificate_permissions = ["Get", "List", "Create"]
+        storage_permissions     = ["Get", "List"]
+      }
+    ]
+
+    tags = {
+      environment = "dev"
+      owner       = "sourav"
+      project     = "terraform-modular-demo"
+      costcenter  = "cc001"
+    }
+  }
+}
+
+kv_secrets = {
+  secret1 = {
+    kv_name      = "kv-todoappsouravkuila"
+    rg_name      = "rg-dev-souravkuila"
+    secret_name  = "vm-adminusername"
+    secret_value = "azureuser"
+
+  },
+  secret2 = {
+    kv_name      = "kv-todoappsouravkuila"
+    rg_name      = "rg-dev-souravkuila"
+    secret_name  = "vm-adminpassword"
+    secret_value = "P@ssword123!"
+  },
+  secret3 = {
+    kv_name      = "kv-todoappsouravkuila"
+    rg_name      = "rg-dev-souravkuila"
+    secret_name  = "sql-adminusername"
+    secret_value = "sqladmintodo"
+  },
+  secret4 = {
+    kv_name      = "kv-todoappsouravkuila"
+    rg_name      = "rg-dev-souravkuila"
+    secret_name  = "sql-adminpassword"
+    secret_value = "P@ssword123!"
   }
 }

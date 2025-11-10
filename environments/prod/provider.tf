@@ -6,13 +6,13 @@ terraform {
     }
   }
 
-#   backend "azurerm" {
-#     resource_group_name   = "Souravgenerg"
-#     storage_account_name  = "kuilastorage"
-#     container_name        = "prodkuila"
-#     key                   = "production.terraform.tfstate"
+  backend "azurerm" {
+    resource_group_name   = "souravtodogenrg"
+    storage_account_name  = "souravtodogenstore"
+    container_name        = "souravtodogencont"
+    key                   = "prod.terraform.tfstate"
     
-#   }
+  }
 }
 
 provider "azurerm" {

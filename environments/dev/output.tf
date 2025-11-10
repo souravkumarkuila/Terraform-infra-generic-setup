@@ -1,5 +1,5 @@
 output "rg_ids" {
-  value = module.rg-dev.rg_ids
+  value = module.rg-dev-souravkuila.rg_ids
 }
 
 output "stg_ids" {
