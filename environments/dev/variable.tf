@@ -1,4 +1,4 @@
-variable "rg-main" {
+variable "rgs" {
   type = map(object({
     name       = string                #name of the resource group
     location   = string                #location of the resource group
@@ -7,7 +7,7 @@ variable "rg-main" {
   }))
 }
 
-variable "stg-main" {
+variable "stgs" {
   description = "Map of storage accounts configuration"
   type = map(object({
     # ---------- Required ----------
@@ -49,7 +49,7 @@ variable "stg-main" {
   }))
 }
 
-variable "vnet-main" {
+variable "vnets" {
   description = "Map of Virtual Network configurations"
   type = map(object({
     name                    = string
@@ -85,7 +85,7 @@ variable "vnet-main" {
 }
 
 
-variable "pip-main" {
+variable "pips" {
   description = "Map of public IP configurations"
   type = map(object({
     name                    = string
@@ -107,7 +107,7 @@ variable "pip-main" {
 
 
 # Network Security Group (NSG)
-variable "nsg-main" {
+variable "nsgs" {
   description = "Map of Network Security Group configurations"
   type = map(object({
     name                = string
@@ -134,7 +134,7 @@ variable "nsg-main" {
 }
 
 # Network Interface (NIC)
-variable "nic-main" {
+variable "nics" {
   description = "Map of Network Interface configurations"
   type = map(object({
     # data block variable
@@ -161,7 +161,7 @@ variable "nic-main" {
 }
 
 # NIC ↔ NSG Association
-variable "nic_nsg_association-main" {
+variable "nic_nsg_association" {
   description = "Map defining NIC and NSG association"
   type = map(object({
     # data block variable
@@ -175,19 +175,24 @@ variable "nic_nsg_association-main" {
 }
 
 # Virtual Machine (Linux)
-variable "vms-main" {
+variable "vms" {
   description = "Map of Linux Virtual Machine configurations"
   type = map(object({
     # data block variable
-    nic_name = string
+    nic_name                = string
+    kv_name                 = string
+    vm_username_secret_name = string
+    vm_password_secret_name = string
     # resource block variable
     name                = string
     resource_group_name = string
     location            = string
     size                = string
-    admin_username      = string
-    admin_password      = optional(string)
-    # network_interface_ids           = list(string) # if we using data block for this then not required here
+    # costom_data script_name
+    script_name         = string
+    # admin_username                  = string           # value taken from key vault secret
+    # admin_password                  = optional(string) # value taken from key vault secret
+    # network_interface_ids           = list(string)     # if we using data block for this then not required here
     disable_password_authentication = optional(bool)
     computer_name                   = optional(string)
     custom_data                     = optional(string)
@@ -275,6 +280,130 @@ variable "kv_secrets" {
     tags            = optional(map(string))
   }))
 }
+
+variable "sql_databases" {
+  description = "Map of Azure MSSQL Database configurations"
+  type = map(object({
+    # ---------- Required ----------
+    name                = string
+    resource_group_name = string
+    location            = string
+    server_name         = string
+
+    # ---------- Optional simple arguments ----------
+    sku_name                                     = optional(string)
+    collation                                    = optional(string)
+    max_size_gb                                  = optional(number)
+    min_capacity                                 = optional(number)
+    zone_redundant                               = optional(bool)
+    license_type                                 = optional(string)
+    read_replica_count                           = optional(number)
+    geo_backup_enabled                           = optional(bool)
+    transparent_data_encryption_enabled          = optional(bool)
+    transparent_data_encryption_key_vault_key_id = optional(string)
+    transparent_data_encryption_key_automatic_rotation_enabled = optional(bool)
+    ledger_enabled                               = optional(bool)
+    read_scale                                   = optional(bool)
+    sample_name                                  = optional(string)
+    storage_account_type                         = optional(string)
+    enclave_type                                 = optional(string)
+    maintenance_configuration_name               = optional(string)
+    secondary_type                               = optional(string)
+    creation_source_database_id                  = optional(string)
+    create_mode                                  = optional(string)
+    restore_point_in_time                        = optional(string)
+    recover_database_id                          = optional(string)
+    recovery_point_id                            = optional(string)
+    restore_dropped_database_id                  = optional(string)
+    restore_long_term_retention_backup_id        = optional(string)
+    elastic_pool_id                              = optional(string)
+    auto_pause_delay_in_minutes                  = optional(number)
+    tags                                         = optional(map(string))
+
+    # ---------- Optional Import Block ----------
+    import = optional(list(object({
+      storage_uri                  = string
+      storage_key                  = string
+      storage_key_type             = string
+      administrator_login          = string
+      administrator_login_password = string
+      authentication_type          = string
+      storage_account_id           = optional(string)
+    })), [])
+
+    # ---------- Optional Threat Detection Policy ----------
+    threat_detection_policy = optional(list(object({
+      state                      = optional(string)
+      disabled_alerts            = optional(list(string))
+      email_account_admins       = optional(bool)
+      email_addresses            = optional(list(string))
+      retention_days             = optional(number)
+      storage_account_access_key = optional(string)
+      storage_endpoint           = optional(string)
+    })), [])
+
+    # ---------- Optional Short-Term Retention Policy ----------
+    short_term_retention_policy = optional(list(object({
+      retention_days           = number
+      backup_interval_in_hours = optional(number)
+    })), [])
+
+    # ---------- Optional Long-Term Retention Policy ----------
+    long_term_retention_policy = optional(list(object({
+      weekly_retention  = optional(string)
+      monthly_retention = optional(string)
+      yearly_retention  = optional(string)
+      week_of_year      = optional(number)
+    })), [])
+
+    # ---------- Optional Identity ----------
+    identity = optional(list(object({
+      type         = string
+      identity_ids = optional(list(string))
+    })), [])
+  }))
+}
+
+
+variable "sql_servers" {
+  description = "Map of Azure SQL Server configurations"
+  type = map(object({
+    name                = string
+    resource_group_name = string
+    location            = string
+    version             = string
+    # data block variable
+    kv_name                  = string
+    sql_username_secret_name = string
+    sql_password_secret_name = string
+    # administrator_login                        = optional(string)    # value taken from key vault secret
+    # administrator_login_password               = optional(string)    # value taken from key vault secret
+    administrator_login_password_wo              = optional(string)
+    administrator_login_password_wo_version      = optional(number)
+    connection_policy                            = optional(string)
+    express_vulnerability_assessment_enabled     = optional(bool)
+    transparent_data_encryption_key_vault_key_id = optional(string)
+    minimum_tls_version                          = optional(string)
+    public_network_access_enabled                = optional(bool)
+    outbound_network_restriction_enabled         = optional(bool)
+    primary_user_assigned_identity_id            = optional(string)
+
+    identity = optional(list(object({
+      type         = string
+      identity_ids = optional(list(string))
+    })), [])
+
+    azuread_administrator = optional(list(object({
+      login_username              = string
+      object_id                   = string
+      tenant_id                   = optional(string)
+      azuread_authentication_only = optional(bool)
+    })), [])
+
+    tags = optional(map(string))
+  }))
+}
+
 
 
 

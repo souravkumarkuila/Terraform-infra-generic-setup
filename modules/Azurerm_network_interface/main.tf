@@ -2,16 +2,16 @@
 resource "azurerm_network_interface" "nic" {
 
   for_each = var.nics
-
+  
   # ---------- Required Arguments ----------
   name                = each.value.name
   location            = each.value.location
   resource_group_name = each.value.resource_group_name
 
   # ---------- Optional Arguments ----------
-  ip_forwarding_enabled          = each.value.ip_forwarding_enabled
+  ip_forwarding_enabled         = each.value.ip_forwarding_enabled
   accelerated_networking_enabled = each.value.accelerated_networking_enabled
-  tags                           = each.value.tags
+  tags                          = each.value.tags
 
   # ---------- Optional Nested Block ----------
   dynamic "ip_configuration" {

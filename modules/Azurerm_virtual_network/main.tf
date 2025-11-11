@@ -28,10 +28,10 @@ resource "azurerm_virtual_network" "vnet" {
   dynamic "subnet" {
     for_each = each.value.subnets
     content {
-      name                                          = subnet.value.name
-      address_prefixes                              = subnet.value.address_prefix
-      service_endpoints                             = subnet.value.service_endpoints
-      private_endpoint_network_policies             = subnet.value.private_endpoint_network_policies
+      name           = subnet.value.name
+      address_prefixes = subnet.value.address_prefix
+      service_endpoints = subnet.value.service_endpoints
+      private_endpoint_network_policies     = subnet.value.private_endpoint_network_policies
       private_link_service_network_policies_enabled = subnet.value.private_link_service_network_policies_enabled
 
       # ---------- Optional Nested Block ----------

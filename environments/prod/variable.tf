@@ -1,7 +1,5 @@
-variable "rg_main" {}
+variable "rg-main"{}
 
-variable "vnet_main" {}
+variable "vnet-main"{}
 
-variable "subnet_main" {}
-
-
+variable "subnet-main" {}

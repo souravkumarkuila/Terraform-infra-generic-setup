@@ -1,21 +1,19 @@
 module "rg-prod" {
-  source = "../../modules/Azurerm_resource_group"
+  source = "../../modules/azurerm_resource_group"
 
-  rgs = var.rg_main
+  rgs = var.rg-main
 }
 
 module "vnet-prod" {
-  source = "../../modules/Azurerm_virtual_network"
+  source = "../../modules/azurerm_virtual_network"
 
-  vnets      = var.vnet_main
+  vnets = var.vnet-main
   depends_on = [module.rg-prod]
 }
 
 module "subnet-prod" {
   source = "../../modules/azurerm_subnet"
 
-  subnets    = var.subnet-main
+  subnets = var.subnet-main
   depends_on = [module.vnet-prod]
 }
-
-
