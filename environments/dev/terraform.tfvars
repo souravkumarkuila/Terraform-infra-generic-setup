@@ -1,6 +1,6 @@
 rgs = {
   rg1 = {
-    name       = "rg-todosouravappgene"
+    name       = "rg-todoappprojects"
     location   = "Central US"
     managed_by = " managed by dev team"
     tags = {
@@ -28,8 +28,8 @@ rgs = {
 
 stgs = {
   stg1 = {
-    name                     = "stgdevaccount127"
-    resource_group_name      = "rg-todosouravappgene"
+    name                     = "stgdevaccount129"
+    resource_group_name      = "rg-todoappprojects"
     location                 = "Central US"
     account_tier             = "Standard"
     account_replication_type = "LRS"
@@ -54,7 +54,7 @@ stgs = {
     ]
   }
   stg2 = {
-    name                     = "stgprodaccount008"
+    name                     = "stgprodaccount124"
     resource_group_name      = "rg-prod"
     location                 = "East US"
     account_tier             = "Standard"
@@ -77,7 +77,7 @@ vnets = {
   vnet1 = {
     name                = "vnet-todo"
     location            = "Central US"
-    resource_group_name = "rg-todosouravappgene"
+    resource_group_name = "rg-todoappprojects"
     address_space       = ["10.0.0.0/16"]
     tags = {
       environment  = "dev"
@@ -103,7 +103,7 @@ pips = {
   pip1 = {
     name                = "pip-frontend"
     location            = "Central US"
-    resource_group_name = "rg-todosouravappgene"
+    resource_group_name = "rg-todoappprojects"
     allocation_method   = "Static"
     tags = {
       environment  = "dev"
@@ -116,7 +116,7 @@ pips = {
   pip2 = {
     name                    = "pip-backend"
     location                = "Central US"
-    resource_group_name     = "rg-todosouravappgene"
+    resource_group_name     = "rg-todoappprojects"
     allocation_method       = "Static"
     sku                     = "Standard"
     idle_timeout_in_minutes = 15
@@ -133,42 +133,42 @@ nsgs = {
   nsg1 = {
     name                = "nsg-frontend"
     location            = "Central US"
-    resource_group_name = "rg-todosouravappgene"
+    resource_group_name = "rg-todoappprojects"
     tags = {
       environment = "dev"
     }
 
     security_rules = [
-  {
-    name                       = "SSH"
-    priority                   = 1001
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "22"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  },
-  {
-    name                       = "HTTP"
-    priority                   = 1002
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "80"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-]
+      {
+        name                       = "SSH"
+        priority                   = 1001
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "22"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+      },
+      {
+        name                       = "HTTP"
+        priority                   = 1002
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "80"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+      }
+    ]
 
   }
 
   nsg2 = {
     name                = "nsg-backend"
     location            = "Central US"
-    resource_group_name = "rg-todosouravappgene"
+    resource_group_name = "rg-todoappprojects"
     tags = {
       environment = "dev"
     }
@@ -196,7 +196,7 @@ nics = {
     pip_name                      = "pip-frontend"
     name                          = "nic-frontend"
     location                      = "Central US"
-    resource_group_name           = "rg-todosouravappgene"
+    resource_group_name           = "rg-todoappprojects"
     enable_ip_forwarding          = false
     enable_accelerated_networking = false
     tags                          = { environment = "dev" }
@@ -216,7 +216,7 @@ nics = {
     pip_name                      = "pip-backend"
     name                          = "nic-backend"
     location                      = "Central US"
-    resource_group_name           = "rg-todosouravappgene"
+    resource_group_name           = "rg-todoappprojects"
     enable_ip_forwarding          = false
     enable_accelerated_networking = false
     tags                          = { environment = "dev" }
@@ -236,12 +236,12 @@ nic_nsg_association = {
   assoc1 = {
     nic_name            = "nic-frontend"
     nsg_name            = "nsg-frontend"
-    resource_group_name = "rg-todosouravappgene"
+    resource_group_name = "rg-todoappprojects"
   }
   assoc2 = {
     nic_name            = "nic-backend"
     nsg_name            = "nsg-backend"
-    resource_group_name = "rg-todosouravappgene"
+    resource_group_name = "rg-todoappprojects"
   }
 }
 
@@ -249,11 +249,11 @@ vms = {
   vm1 = {
     name                            = "vm-todo-frontend"
     location                        = "Central US"
-    resource_group_name             = "rg-todosouravappgene"
+    resource_group_name             = "rg-todoappprojects"
     size                            = "Standard_B1s"
     disable_password_authentication = false
     nic_name                        = "nic-frontend"
-    kv_name                         = "kv-todo-souravlock"
+    kv_name                         = "kv-todo-souravlockes"
     vm_username_secret_name         = "vm-adminusername"
     vm_password_secret_name         = "vm-adminpassword"
     provision_vm_agent              = true
@@ -283,11 +283,11 @@ vms = {
   vm2 = {
     name                            = "vm-todo-backend"
     location                        = "Central US"
-    resource_group_name             = "rg-todosouravappgene"
+    resource_group_name             = "rg-todoappprojects"
     size                            = "Standard_B1s"
     disable_password_authentication = false
     nic_name                        = "nic-backend"
-    kv_name                         = "kv-todo-souravlock"
+    kv_name                         = "kv-todo-souravlockes"
     vm_username_secret_name         = "vm-adminusername"
     vm_password_secret_name         = "vm-adminpassword"
     provision_vm_agent              = true
@@ -317,8 +317,8 @@ vms = {
 
 key_vaults = {
   kv-dev = {
-    name                            = "kv-todo-souravlock"
-    resource_group_name             = "rg-todosouravappgene"
+    name                            = "kv-todo-souravlockes"
+    resource_group_name             = "rg-todoappprojects"
     location                        = "eastus"
     sku_name                        = "standard"
     enabled_for_deployment          = true
@@ -348,27 +348,27 @@ key_vaults = {
 
 kv_secrets = {
   secret1 = {
-    kv_name      = "kv-todo-souravlock"
-    rg_name      = "rg-todosouravappgene"
+    kv_name      = "kv-todo-souravlockes"
+    rg_name      = "rg-todoappprojects"
     secret_name  = "vm-adminusername"
     secret_value = "azureuser"
 
   },
   secret2 = {
-    kv_name      = "kv-todo-souravlock"
-    rg_name      = "rg-todosouravappgene"
+    kv_name      = "kv-todo-souravlockes"
+    rg_name      = "rg-todoappprojects"
     secret_name  = "vm-adminpassword"
     secret_value = "P@ssword123!"
   },
   secret3 = {
-    kv_name      = "kv-todo-souravlock"
-    rg_name      = "rg-todosouravappgene"
+    kv_name      = "kv-todo-souravlockes"
+    rg_name      = "rg-todoappprojects"
     secret_name  = "sql-adminusername"
     secret_value = "sqladmintodo"
   },
   secret4 = {
-    kv_name      = "kv-todo-souravlock"
-    rg_name      = "rg-todosouravappgene"
+    kv_name      = "kv-todo-souravlockes"
+    rg_name      = "rg-todoappprojects"
     secret_name  = "sql-adminpassword"
     secret_value = "P@ssword123!"
   }
@@ -378,10 +378,10 @@ kv_secrets = {
 sql_servers = {
   sql1 = {
     name                                     = "sourav-dev-eastus-sqlsrv"
-    resource_group_name                      = "rg-todosouravappgene"
+    resource_group_name                      = "rg-todoappprojects"
     location                                 = "Central US"
     version                                  = "12.0"
-    kv_name                                  = "kv-todo-souravlock"
+    kv_name                                  = "kv-todo-souravlockes"
     sql_username_secret_name                 = "sql-adminusername"
     sql_password_secret_name                 = "sql-adminpassword"
     connection_policy                        = "Default"
@@ -409,7 +409,7 @@ sql_databases = {
   sql_db1 = {
     name                = "todomciro-database"
     server_name         = "sourav-dev-eastus-sqlsrv"
-    resource_group_name = "rg-todosouravappgene"
+    resource_group_name = "rg-todoappprojects"
     location            = "Central US"
     sku_name            = "S0"
     max_size_gb         = 10
@@ -427,4 +427,4 @@ sql_databases = {
   }
 }
 
-  
+
