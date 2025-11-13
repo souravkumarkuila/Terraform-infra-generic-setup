@@ -1,24 +1,20 @@
 variable "rgs" {
   type = map(object({
-    name       = string                #name of the resource group
-    location   = string                #location of the resource group
-    managed_by = optional(string)      #who is managing the resource group
-    tags       = optional(map(string)) #tag for specifying the project,owner,cost etc
+    name       = string                
+    location   = string               
+    managed_by = optional(string)    
+    tags       = optional(map(string))
   }))
 }
 
 variable "stgs" {
   description = "Map of storage accounts configuration"
   type = map(object({
-    # ---------- Required ----------
     name                     = string
     resource_group_name      = string
     location                 = string
     account_tier             = string
     account_replication_type = string
-
-    # ---------- Optional ----------
-
     account_kind                      = optional(string)
     provisioned_billing_model_version = optional(string)
     cross_tenant_replication_enabled  = optional(bool)
