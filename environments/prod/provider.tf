@@ -9,9 +9,9 @@ terraform {
  
  
   backend "azurerm" {
-    resource_group_name  = "rg-todoappprojects"
-    storage_account_name = "sgtodoappprojects"
-    container_name       = "conttodoappprojects"
+    resource_group_name  = "rg-todoappproj"
+    storage_account_name = "sgtodoappproj"
+    container_name       = "conttodoappproj"
     key                  = "dev.terraform.tfstate"
 
   }

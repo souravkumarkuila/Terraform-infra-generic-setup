@@ -1,4 +1,3 @@
-# modules/aks/variables.tf
 variable "aks_clusters" {
   type = map(object({
     location                  = string

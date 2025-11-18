@@ -253,7 +253,7 @@ vms = {
     size                            = "Standard_B1s"
     disable_password_authentication = false
     nic_name                        = "nic-frontend"
-    kv_name                         = "kv-todo-souravlockes"
+    kv_name                         = "kv-todo-souravloc"
     vm_username_secret_name         = "vm-adminusername"
     vm_password_secret_name         = "vm-adminpassword"
     provision_vm_agent              = true
@@ -287,7 +287,7 @@ vms = {
     size                            = "Standard_B1s"
     disable_password_authentication = false
     nic_name                        = "nic-backend"
-    kv_name                         = "kv-todo-souravlockes"
+    kv_name                         = "kv-todo-souravloc"
     vm_username_secret_name         = "vm-adminusername"
     vm_password_secret_name         = "vm-adminpassword"
     provision_vm_agent              = true
@@ -317,7 +317,7 @@ vms = {
 
 key_vaults = {
   kv-dev = {
-    name                            = "kv-todo-souravlockes"
+    name                            = "kv-todo-souravloc"
     resource_group_name             = "rg-todoappprojects"
     location                        = "eastus"
     sku_name                        = "standard"
@@ -348,26 +348,26 @@ key_vaults = {
 
 kv_secrets = {
   secret1 = {
-    kv_name      = "kv-todo-souravlockes"
+    kv_name      = "kv-todo-souravloc"
     rg_name      = "rg-todoappprojects"
     secret_name  = "vm-adminusername"
     secret_value = "azureuser"
 
   },
   secret2 = {
-    kv_name      = "kv-todo-souravlockes"
+    kv_name      = "kv-todo-souravloc"
     rg_name      = "rg-todoappprojects"
     secret_name  = "vm-adminpassword"
     secret_value = "P@ssword123!"
   },
   secret3 = {
-    kv_name      = "kv-todo-souravlockes"
+    kv_name      = "kv-todo-souravloc"
     rg_name      = "rg-todoappprojects"
     secret_name  = "sql-adminusername"
     secret_value = "sqladmintodo"
   },
   secret4 = {
-    kv_name      = "kv-todo-souravlockes"
+    kv_name      = "kv-todo-souravloc"
     rg_name      = "rg-todoappprojects"
     secret_name  = "sql-adminpassword"
     secret_value = "P@ssword123!"
@@ -381,7 +381,7 @@ sql_servers = {
     resource_group_name                      = "rg-todoappprojects"
     location                                 = "Central US"
     version                                  = "12.0"
-    kv_name                                  = "kv-todo-souravlockes"
+    kv_name                                  = "kv-todo-souravloc"
     sql_username_secret_name                 = "sql-adminusername"
     sql_password_secret_name                 = "sql-adminpassword"
     connection_policy                        = "Default"

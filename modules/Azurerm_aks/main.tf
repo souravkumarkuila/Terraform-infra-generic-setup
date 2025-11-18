@@ -1,4 +1,3 @@
-# modules/aks/main.tf
 resource "azurerm_kubernetes_cluster" "aks_cluster" {
   for_each            = var.aks_clusters
   name                = each.key
