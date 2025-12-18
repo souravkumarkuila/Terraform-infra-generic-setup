@@ -8,8 +8,8 @@ terraform {
 
   backend "azurerm" {
     resource_group_name  = "rg-todoappproj"
-    storage_account_name = "sgtodoappproj"
-    container_name       = "conttodoappproj"
+    storage_account_name = "sgtodoapppro"
+    container_name       = "conttodoapppro"
     key                  = "dev.terraform.tfstate"
 
   }
@@ -17,6 +17,6 @@ terraform {
 
 provider "azurerm" {
   features {}
-  subscription_id = "6e65d60a-bc12-4f70-8dcd-6cdb4da48e3e"
+  subscription_id = ""
 
 }
