@@ -1,14 +1,14 @@
 trigger: none
 pool: infrapool
 stages:
-  - stage: 
+  - stage: initvalidateplan
     displayName: Terraform init validate plan
     jobs:
-      - job: 
+      - job: initplan
         displayName: Terraform init plan
         steps:
         - task: TerraformInstaller@1
-          
+          displayName: Terraform install
           inputs:
             terraformVersion: 'latest'
         - task: TerraformTask@5
@@ -37,4 +37,26 @@ stages:
             command: 'plan'
             workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
             environmentServiceNameAzureRM: 'infraserviceconnect'
+  - stage: securityscanning
+    displayName: security scanning
+    jobs:
+      - job: 
+        displayName: security scanning
+        steps:
+        - task: AzurePowerShell@5
+          inputs:
+            azureSubscription: 'infraserviceconnect'
+            ScriptType: 'InlineScript'
+            Inline: 'checkov -d .'
+            azurePowerShellVersion: 'LatestVersion'
+        - task: tfsec@1
+          displayName: TFSEC Scan
+          inputs:
+            version: 'v1.26.0'
+            dir: '''$(System.DefaultWorkingDirectory)'''
+    
+  
+        
+
+        
 
