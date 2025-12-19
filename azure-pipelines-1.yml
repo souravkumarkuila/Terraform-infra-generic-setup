@@ -1,0 +1,25 @@
+trigger: none
+pool: infrapool
+stages:
+  - stage: 
+    displayName: Terraform init validate plan
+    jobs:
+      - job: 
+        displayName: Terraform init plan
+        steps:
+        - task: TerraformInstaller@1
+          
+          inputs:
+            terraformVersion: 'latest'
+        - task: TerraformTask@5
+          displayName: Terraforminit
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
+            backendServiceArm: 'infraserviceconnect'
+            backendAzureRmResourceGroupName: 'rg-todoappproj'
+            backendAzureRmStorageAccountName: 'sgtodoapppro'
+            backendAzureRmContainerName: 'conttodoapppro'
+            backendAzureRmKey: 'dev.terraform.tfstate'
+        
