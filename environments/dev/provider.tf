@@ -7,10 +7,10 @@ terraform {
   }
 
   backend "azurerm" {
-    resource_group_name  = "rg-todoappproj"
-    storage_account_name = "sgtodoapppro"
-    container_name       = "conttodoapppro"
-    key                  = "dev.terraform.tfstate"
+    # resource_group_name  = "rg-todoappproj"
+    # storage_account_name = "sgtodoapppro"
+    # container_name       = "conttodoapppro"
+    # key                  = "dev.terraform.tfstate"
 
   }
 }
