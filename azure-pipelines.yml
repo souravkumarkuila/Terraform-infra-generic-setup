@@ -14,9 +14,11 @@ stages:
       - job: 
         steps:
         - task: TerraformInstaller@1
+          displayName: Terraforminstall
           inputs:
             terraformVersion: 'latest'
         - task: TerraformTask@5
+          displayName: Terraforminit
           inputs:
             provider: 'azurerm'
             command: 'init'
@@ -40,3 +42,6 @@ stages:
             command: 'plan'
             workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
             environmentServiceNameAzureRM: 'genericinfras'
+        
+
+        
