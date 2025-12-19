@@ -1,13 +1,13 @@
 trigger: none
 pool: genericinfrapool
-parameters:
-  - name: environment
-    displayName: Envrionment
-    type: string
-    default: dev
-    values:
-      - dev
-      - staging
+# parameters:
+#   - name: environment
+#     displayName: Envrionment
+#     type: string
+#     default: dev
+#     values:
+#       - dev
+#       - prod
 stages:
   - stage: Terraforminfra
     jobs:
