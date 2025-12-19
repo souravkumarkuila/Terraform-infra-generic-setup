@@ -31,6 +31,7 @@ stages:
             backendAzureRmKey: 'dev.terraform.tfstate'
         
         - task: TerraformTask@5
+          displayName: Terraformvalidate
           inputs:
             provider: 'azurerm'
             command: 'validate'
