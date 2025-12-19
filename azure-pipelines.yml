@@ -21,14 +21,15 @@ stages:
           inputs:
             terraformVersion: 'latest'
         - task: TerraformTask@5
-          displayName: Terraforminit
           inputs:
             provider: 'azurerm'
             command: 'init'
             workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
+            commandOptions: '-reconfigure'
             backendServiceArm: 'genericinfras'
             backendAzureRmResourceGroupName: 'rg-todoappproj'
             backendAzureRmStorageAccountName: 'sgtodoapppro'
             backendAzureRmContainerName: 'conttodoapppro'
             backendAzureRmKey: 'dev.terraform.tfstate'
+            
         
