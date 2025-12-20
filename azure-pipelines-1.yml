@@ -1,4 +1,12 @@
 trigger: none
+parameters:
+  - name: env
+    displayName: Environment
+    type: string
+    default: dev
+    values:
+      - dev
+      - qa
 pool: infrapool
 stages:
   - stage: initvalidateplan
@@ -16,7 +24,7 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'init'
-            workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/env/${{parameters.env}}'
             backendServiceArm: 'infraserviceconnect'
             backendAzureRmResourceGroupName: 'rg-todoappproj'
             backendAzureRmStorageAccountName: 'sgtodoapppro'
@@ -28,14 +36,14 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'validate'
-            workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/env/${{parameters.env}}'
 
         - task: TerraformTask@5
           displayName: Terraformplan
           inputs:
             provider: 'azurerm'
             command: 'plan'
-            workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/env/${{parameters.env}}'
             environmentServiceNameAzureRM: 'infraserviceconnect'
   - stage: securityscanning
     displayName: security scanning
